@@ -326,4 +326,104 @@ ENDCLASS.
 START-OF-SELECTION.
 
   NEW lcl_dpi_consegne( )->execute( ).
- 
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report  Z_DPI_IMG
+*&
+*&---------------------------------------------------------------------*
+*&
+*&
+*&---------------------------------------------------------------------*
+REPORT z_dpi_img.
+
+SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME.
+SELECTION-SCREEN COMMENT /1(50) text-001.
+SELECTION-SCREEN ULINE.
+
+PARAMETERS: rb_canop RADIOBUTTON GROUP r1,
+            rb_cons  RADIOBUTTON GROUP r1,
+            rb_ver1  RADIOBUTTON GROUP r1,
+            rb_ver2  RADIOBUTTON GROUP r1,
+            rb_ver3  RADIOBUTTON GROUP r1,
+            rb_ver4  RADIOBUTTON GROUP r1,
+            rb_rinn  RADIOBUTTON GROUP r1.
+
+SELECTION-SCREEN SKIP.
+SELECTION-SCREEN COMMENT /1(50) text-002.
+SELECTION-SCREEN ULINE.
+
+PARAMETERS: rb_freq RADIOBUTTON GROUP r1.
+SELECTION-SCREEN END OF BLOCK b01.
+
+
+CLASS lcl_dpi_img DEFINITION.
+  PUBLIC SECTION.
+	CLASS-METHODS execute.
+ENDCLASS.
+
+CLASS lcl_dpi_img IMPLEMENTATION.
+  METHOD execute.
+
+	CASE abap_true.
+  	WHEN rb_canop.
+    	DATA(lv_tcode) = 'ZESIGENZE_CANOPO_DPI'.
+  	WHEN rb_ver1.
+        lv_tcode = 'ZANTDOT'.
+  	WHEN rb_ver2.
+        lv_tcode = 'ZINSDOT'.
+  	WHEN rb_ver3.
+        lv_tcode = 'ZMODDOT'.
+  	WHEN rb_ver4.
+        lv_tcode = 'ZNEWDOT'.
+  	WHEN rb_cons.
+        lv_tcode = 'Z_DPI_CONSEGNE'.
+  	WHEN rb_rinn.
+        lv_tcode = 'Z_DPI_RINNOVI'.
+
+  	WHEN rb_freq.
+    	DATA(lv_maint) = EXACT dd02v-tabname( 'ZMM_FREQ_DPI' ).
+	ENDCASE.
+
+	IF lv_tcode IS NOT INITIAL.
+  	CALL TRANSACTION lv_tcode WITH AUTHORITY-CHECK.
+	ELSE.
+  	CALL FUNCTION 'VIEW_MAINTENANCE_CALL'
+    	EXPORTING
+          action                   	= 'S'
+          view_name                	= lv_maint
+    	EXCEPTIONS
+          client_reference         	= 1
+          foreign_lock             	= 2
+          invalid_action           	= 3
+          no_clientindependent_auth	= 4
+          no_database_function     	= 5
+          no_editor_function       	= 6
+          no_show_auth             	= 7
+          no_tvdir_entry           	= 8
+          no_upd_auth              	= 9
+          only_show_allowed        	= 10
+          system_failure           	= 11
+          unknown_field_in_dba_sellist = 12
+          view_not_found           	= 13
+          maintenance_prohibited   	= 14
+      	OTHERS                   	= 15.
+  	IF sy-subrc <> 0.
+* Implement suitable error handling here
+  	ENDIF.
+
+	ENDIF.
+
+  ENDMETHOD.
+ENDCLASS.
+
+
+START-OF-SELECTION.
+  lcl_dpi_img=>execute( ).
+
