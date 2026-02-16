@@ -1,0 +1,87 @@
+https://me.sap.com/notes/0002484299
+
+BAPI list for BP
+
+Description
+Symptom
+Standard BAPIs to update Business Partners.
+
+Environment
+SAP ERP Central Component
+SAP ERP
+SAP Enhancement package for SAP ERP
+SAP Enhancement package for SAP ERP, version for SAP HANA
+SAP S/4 HANA
+SAP S/4HANA Cloud Private Edition
+SAP Customer Relationship Management (CRM)
+SAP enhancement package for SAP CRM
+SAP enhancement package for SAP CRM, version for SAP HANA 
+Resolution
+Central Data
+BAPI_BUPA_CREATE_FROM_DATA: Create a business partner
+BAPI_BUPA_CENTRAL_CHANGE: Changing a business partner
+BAPI_BUPA_CENTRAL_GETDETAIL: Reading the central data of a business partner
+BAPI_BUPA_CENTRAL_GETLIST: Get central BP-Data of a period
+BAPI_BUPA_CENTRAL_MAINT_PERIOD: Maintenance of central data for a period
+Address Data
+BAPI_BUPA_ADDRESSES_GET: Get all addresses for a BP
+BAPI_BUPA_ADDRESS_ADD: Add address
+BAPI_BUPA_ADDRESS_CHANGE: Change address
+BAPI_BUPA_ADDRESS_GETDETAIL: Get address
+BAPI_BUPA_ADDRESS_GET_NUMBERS: Get address numbers
+BAPI_BUPA_ADDRESS_REMOVE: Remove address
+Bank Details
+BAPI_BUPA_BANKDETAIL_ADD: Add bank detail
+BAPI_BUPA_BANKDETAIL_CHANGE: Change bank detail
+BAPI_BUPA_BANKDETAIL_GETDETAIL: Get bank detail
+BAPI_BUPA_BANKDETAIL_NUMBERS: Get bank detail numbers
+BAPI_BUPA_BANKDETAIL_REMOVE: Remove bank detail
+BAPI_BUPA_BANKDETAILS_GET: Get bank details of a business partner
+Payment Card Details:
+BAPI_BUPA_PCARD_ADD: Add payment card details
+BAPI_BUPA_PCARD_CHANGE: Change payment card details
+BAPI_BUPA_PCARD_GETDETAIL: Get payment card details
+BAPI_BUPA_PCARD_GETDETAILS: Get all card details of a business partner
+BAPI_BUPA_PCARD_REMOVE: Remove payment card details
+BAPI_BUPA_PCARD_SETDEFAULT: Setting of the standard payment card details
+Roles:
+BAPI_BUPA_ROLES_GET_2: Get all roles
+BAPI_BUPA_ROLE_ADD_2: Add role
+BAPI_BUPA_ROLE_CHANGE: Change business partner role
+BAPI_BUPA_ROLE_EXISTENCE_CHECK: Check role for existence
+Identifications:
+BAPI_IDENTIFICATIONDETAILS_GET: Get identification numbers
+BAPI_IDENTIFICATION_ADD: Add identification number
+BAPI_IDENTIFICATION_CHANGE: Change identification number
+BAPI_IDENTIFICATION_GET_DETAIL: Get identification numbers
+BAPI_IDENTIFICATION_REMOVE: Remove identification number
+Status:
+BAPI_BUPA_STATUS_ADD: Add status
+BAPI_BUPA_STATUS_GETDETAIL: Get status detail
+BAPI_BUPA_STATUS_REMOVE: Remove status
+Industry sectors:
+BAPI_INDUSTRYSECTORDETAILS_GET: Get industry sector details
+BAPI_INDUSTRYSECTOR_ADD: Add industry sector
+BAPI_INDUSTRYSECTOR_CHANGE: Change industry sectors
+BAPI_INDUSTRYSECTOR_GET_DETAIL: Get industry sector data
+BAPI_INDUSTRYSECTOR_REMOVE: Remove industry sector data
+BAPI_PARTNER_GET_BY_IDNUMBER: Get partner on the basis of an ID-Number
+Business Hours:
+BAPI_BUPA_HOURS_ADD: Add a hours rule to a business partner
+BAPI_BUPA_HOURS_CHANGE: Change a hours rule of a business partner
+BAPI_BUPA_HOURS_GETDETAIL: Get details of a hours rule of a business partner
+BAPI_BUPA_HOURS_REMOVE: Remove a hours rule of a business partner
+Diverse BAPI:
+BAPI_BUPA_EXISTENCE_CHECK: Check business partner for existence
+BAPI_BUPA_GET_NUMBERS: Get business partner numbers
+BAPI_BUPA_SEARCH_2: Search business partner telephone, E-Mail, Address
+BAPI_BUPA_GET_EMPLOYEE_FROM_BP : Get employee number from business partner number
+See Also
+*CHANGE BAPIs are for changing the already existed entry/entries. If the field is initial, it is not a change (U) but insert (I) so for those scenarios the *ADD BAPIs can be used.
+
+In S4HANA the class CL_MD_BP_MAINTAIN recommended to use for the creation and maintenance of the business partner such as for customer and vendor role. See SAP Note 2417298.
+
+In ERP the class CL_MD_BP_MAINTAIN is not available. As more BAPIs can be called in a Z program, the BAPI_BUPA_ROLE_ADD_2 can be used to add the necessary role ( customer, vendor) . After the commit work - if the synchronization from direction BP to customer/vendor is active-, the BP will be synchronized to the customer/vendor.
+
+Keywords
+role, identification, address, business hours, status, bank details, create BP, change BP, BAPI to update BP, S4hana, S4 hana, S/4hana, cutomer, vendor, supplier, business partner, payment card, industry sector, relationship, diverse, employee, sold to party, BP migration, replication, synchronize, update, BUT0BK, VMD_EI_API, XK99, BUT0CC, VCKUN 
